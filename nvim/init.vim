@@ -20,6 +20,7 @@ set incsearch
 set termguicolors
 set scrolloff=8
 set autoread
+set mouse=a
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -83,13 +84,15 @@ endfunction
 
 let loaded_matchparen = 1
 let mapleader = " "
+let g:netrw_banner = 0
+let g:netrw_keepdir = 0
 
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <Leader>ps :Rg<SPACE>
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>pf :Files<CR>
