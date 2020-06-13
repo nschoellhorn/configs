@@ -67,7 +67,6 @@ bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart du
 bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
-bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # Focus following the mouse on hover is so fucking annoying. Yes, I know. I could simply not use the mouse at all. Well...
@@ -142,14 +141,14 @@ bindsym $mod+Ctrl+Left workspace prev
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws_any 1:mail
 #                 set $ws_code 2:
-set $ws_any "1: "
-set $ws_code "2:  Code"
-set $ws_web "3:  Web"
-set $ws_terminal "4:  Terminal"
+set $ws_any " 1:  "
+set $ws_code " 2:  Code "
+set $ws_web " 3:  Web "
+set $ws_terminal " 4:  Terminal "
 set $ws5 5
 set $ws6 6
-set $ws_music "7:  Music"
-set $ws_chat "8:  Chat"
+set $ws_music " 7:  Music "
+set $ws_chat " 8:  Chat "
 
 
 # Bind workspaces to monitors
