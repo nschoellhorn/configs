@@ -1,3 +1,7 @@
+" This config is heavily inspired (and copied) from 
+"   https://github.com/jonhoo/configs/
+"   https://github.com/erkrnt/awesome-streamerrc/tree/master/ThePrimeagen
+
 syntax on
 
 set guicursor=
@@ -53,6 +57,8 @@ Plug 'stephpy/vim-yaml'
 Plug 'rust-lang/rust.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'airblade/vim-rooter'
+Plug 'editorconfig/editorconfig-vim'
+
 
 call plug#end()
 
@@ -60,17 +66,12 @@ let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 set background=dark
 
-if executable('rg')
-    let g:rg_derive_root='true'
-endif
-
-
 " VIM Coc Settings -> Tab for autocomplete, Ctrl+Space for showing
 " IntelliSense
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 nnoremap <leader>gd <Plug>(coc-definition)
@@ -78,8 +79,8 @@ nnoremap <leader>gg <Plug>(coc-references)
 nnoremap <leader>mv <Plug>(coc-rename)
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 let loaded_matchparen = 1
@@ -87,14 +88,24 @@ let mapleader = " "
 let g:netrw_banner = 0
 let g:netrw_keepdir = 0
 
+" <leader>s for Rg search
+noremap <leader>s :Rg
+let g:fzf_layout = { 'down': '~20%' }
+command! -bang -nargs=* Rg
+            \ call fzf#vim#grep(
+            \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+            \   <bang>0 ? fzf#vim#with_preview('up:60%')
+            \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+            \   <bang>0)
+
+
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
-nnoremap <Leader>ps :Rg<SPACE>
-nnoremap <C-p> :GFiles<CR>
+nnoremap <C-p> :Files<CR>
 nnoremap <Leader>pf :Files<CR>
 nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>+ :vertical resize +5<CR>
@@ -103,11 +114,28 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 inoremap <C-c> <esc>
 
+" No arrow keys --- force yourself to use the home row
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
 " VIM Fugitive Keybinds
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
 nmap <leader>gs :G<CR>
 nmap <leader>gac :G add . <bar> :G commit<CR>
 
-" Formatting Stuff
-map <leader>fa GG=g
+" Jump to last edit position on opening file
+if has("autocmd")
+    " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+    au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+if executable('rg')
+    set grepprg=rg\ --no-heading\ --vimgrep
+    set grepformat=%f:%l:%c:%m
+endif
+
