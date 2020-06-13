@@ -74,8 +74,8 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 nnoremap <leader>gd <Plug>(coc-definition)
-nnoremap <leader>gr <Plug>(coc-references)
-nnoremap <leader>rn <Plug>(coc-rename)
+nnoremap <leader>gg <Plug>(coc-references)
+nnoremap <leader>mv <Plug>(coc-rename)
 
 function! s:check_back_space() abort
   let col = col('.') - 1
