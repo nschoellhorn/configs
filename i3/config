@@ -43,10 +43,10 @@ bindsym $mod+z exec --no-startup-id morc_menu
 ################################################################################################
 
 exec --no-startup-id volumeicon
-bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
+#bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
-#bindsym $mod+Ctrl+m exec pavucontrol
+bindsym $mod+Ctrl+m exec pavucontrol
 
 ################################################################################################
 
@@ -56,7 +56,7 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-bindsym $mod+F2 exec palemoon
+#bindsym $mod+F2 exec palemoon
 bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
@@ -70,13 +70,14 @@ bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
+# Focus following the mouse on hover is so fucking annoying. Yes, I know. I could simply not use the mouse at all. Well...
 focus_follows_mouse no
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -85,10 +86,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -102,8 +103,8 @@ bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
-bindsym $mod+h split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
+#bindsym $mod+h split h;exec notify-send 'tile horizontally'
+#bindsym $mod+v split v;exec notify-send 'tile vertically'
 bindsym $mod+q split toggle
 
 # toggle fullscreen mode for the focused container
@@ -153,9 +154,11 @@ set $ws_chat "8:  Chat"
 
 # Bind workspaces to monitors
 workspace $ws_any output DP-4
-workspace $ws_code output HDMI-0
-workspace $ws_web output DP-4 
+workspace $ws_code output DP-4
+workspace $ws_terminal output DP-4
+workspace $ws_web output HDMI-0 
 workspace $ws_chat output HDMI-0
+workspace $ws_music output HDMI-0
 
 
 # switch to workspace
@@ -205,7 +208,7 @@ assign [class="jetbrains-toolbox"] $ws_code
 # TODO: Insert JetBrains IDEs here, as well as VSCode and stuff like that?!
 
 # Music Applications have their own workspace (7th) too
-assign [class="Spotify"] $ws_music
+for_window [class="Spotify"] move to workspace $ws_music # Need a little workaround since spotify spawns its windows strangely
 
 # Chat applications on the 8th workspace
 assign [class="discord"] $ws_chat 
@@ -257,38 +260,38 @@ bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+        bindsym s exec --no-startup-id i3exit suspend, mode "default"
+        bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+        bindsym e exec --no-startup-id i3exit logout, mode "default"
+        bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+        bindsym r exec --no-startup-id i3exit reboot, mode "default"
+        bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
 
-    # exit system mode: "Enter" or "Escape"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+# exit system mode: "Enter" or "Escape"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
 }
 
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 5 px or 5 ppt
+# These bindings trigger as soon as you enter the resize mode
+# Pressing left will shrink the window’s width.
+# Pressing right will grow the window’s width.
+# Pressing up will shrink the window’s height.
+# Pressing down will grow the window’s height.
+    bindsym j resize shrink width 5 px or 5 ppt
         bindsym k resize grow height 5 px or 5 ppt
         bindsym l resize shrink height 5 px or 5 ppt
         bindsym semicolon resize grow width 5 px or 5 ppt
 
-        # same bindings, but for the arrow keys
+# same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
-        # exit resize mode: Enter or Escape
+# exit resize mode: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -343,31 +346,31 @@ set_from_resource $term_color15    color15
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-	i3bar_command i3bar
-	status_command i3status
-	position bottom
+    i3bar_command i3bar
+        status_command i3status
+        position bottom
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
 #	tray_output primary
 #	tray_output eDP1
 
-	bindsym button4 nop
-	bindsym button5 nop
+        bindsym button4 nop
+        bindsym button5 nop
 #   font xft:URWGothic-Book 11
-	strip_workspace_numbers yes
+        strip_workspace_numbers yes
 
-    colors {
-        background #222D31
-        statusline #F9FAF9
-        separator  #454947
+        colors {
+            background #222D31
+                statusline #F9FAF9
+                separator  #454947
 
 #                      border  backgr. text
-        focused_workspace  #F9FAF9 #16a085 #292F34
-        active_workspace   #595B5B #353836 #FDF6E3
-        inactive_workspace #595B5B #222D31 #EEE8D5
-        binding_mode       #16a085 #2C2C2C #F9FAF9
-        urgent_workspace   #16a085 #FDF6E3 #E5201D
-    }
+                focused_workspace  #F9FAF9 #16a085 #292F34
+                active_workspace   #595B5B #353836 #FDF6E3
+                inactive_workspace #595B5B #222D31 #EEE8D5
+                binding_mode       #16a085 #2C2C2C #F9FAF9
+                urgent_workspace   #16a085 #FDF6E3 #E5201D
+        }
 }
 
 # hide/unhide i3status bar
@@ -375,20 +378,20 @@ bindsym $mod+m bar mode toggle
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
-  client.focused          #556064 #556064 #80FFF9 #FDF6E3
-  client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
-  client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
-  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000 
+client.focused          #556064 #556064 #80FFF9 #FDF6E3
+client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
+client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
+client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
+client.placeholder      #000000 #0c0c0c #ffffff #000000 
 
-  client.background       #2B2C2B
+client.background       #2B2C2B
 
 #############################
 ### settings for i3-gaps: ###
 #############################
 
 # Set inner/outer gaps
-gaps inner 14
+gaps inner 10
 gaps outer -2
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
@@ -410,13 +413,13 @@ set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
 
 mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
+    bindsym o      mode "$mode_gaps_outer"
         bindsym i      mode "$mode_gaps_inner"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
 mode "$mode_gaps_inner" {
-        bindsym plus  gaps inner current plus 5
+    bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
         bindsym 0     gaps inner current set 0
 
@@ -428,7 +431,7 @@ mode "$mode_gaps_inner" {
         bindsym Escape mode "default"
 }
 mode "$mode_gaps_outer" {
-        bindsym plus  gaps outer current plus 5
+    bindsym plus  gaps outer current plus 5
         bindsym minus gaps outer current minus 5
         bindsym 0     gaps outer current set 0
 
@@ -442,9 +445,7 @@ mode "$mode_gaps_outer" {
 
 exec nvidia-settings --assign CurrentMetaMode="DP-4: nvidia-auto-select +0+0 {ForceCompositionPipeline=On}, HDMI-0: nvidia-auto-select +1920+0 {ForceCompositionPipeline=On}"
 
-
 # Autostart some useful tools that I need all the time anyways
 exec discord
 exec slack
 exec firefox
-exec spotify
