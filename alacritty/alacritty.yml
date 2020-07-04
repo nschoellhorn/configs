@@ -1,12 +1,12 @@
 font:
   normal:
-    family: Meslo LG S for Powerline
+    family: Fira Code
     style: Regular
   bold:
-    family: Meslo LG S for Powerline
+    family: Fira Code
     style: Bold
   italic:
-    family: Meslo LG S for Powerline
+    family: Fira Code
     style: Italic
   size: 13
 
