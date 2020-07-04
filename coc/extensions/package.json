@@ -2,6 +2,11 @@
   "dependencies": {
     "coc-java": ">=1.4.11",
     "coc-json": ">=1.2.6",
-    "coc-tailwindcss": ">=0.6.0"
+    "coc-pairs": ">=1.2.21",
+    "coc-prettier": ">=1.1.14",
+    "coc-rls": ">=1.1.6",
+    "coc-tailwindcss": ">=0.6.0",
+    "coc-tsserver": ">=1.5.2",
+    "coc-xml": ">=1.11.1"
   }
 }

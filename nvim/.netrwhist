@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/nschoellhorn/code/exercism/rust/paasio'
+let g:netrw_dirhist_4='/home/nschoellhorn/code/exercism/rust/gigasecond/tests'
+let g:netrw_dirhist_3='/home/nschoellhorn/code/exercism/rust/gigasecond/src'
+let g:netrw_dirhist_2='/home/nschoellhorn/code/exercism/rust/gigasecond'
+let g:netrw_dirhist_1='/home/nschoellhorn/code/cte'
+let g:netrw_dirhist_0='/home/nschoellhorn/code/gdrive-rs'
+let g:netrw_dirhist_9='/home/nschoellhorn/code/others/nushell/crates'
+let g:netrw_dirhist_8='/home/nschoellhorn/code/others/nushell/src'
+let g:netrw_dirhist_7='/home/nschoellhorn/code/others/nushell'
+let g:netrw_dirhist_6='/home/nschoellhorn/code/gdrive-rs/src'

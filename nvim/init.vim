@@ -57,6 +57,7 @@ Plug 'stephpy/vim-yaml'
 Plug 'rust-lang/rust.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'airblade/vim-rooter'
+Plug 'fannheyward/coc-xml'
 Plug 'editorconfig/editorconfig-vim'
 
 
@@ -84,12 +85,20 @@ function! s:check_back_space() abort
 endfunction
 
 let loaded_matchparen = 1
-let mapleader = " "
+let mapleader = "\<Space>"
 let g:netrw_banner = 0
 let g:netrw_keepdir = 0
 
+
+" Some easier workflow bindings
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-L> <C-W><C-L>
+
+
 " <leader>s for Rg search
-noremap <leader>s :Rg
+noremap <leader>s :Rg<CR>
 let g:fzf_layout = { 'down': '~20%' }
 command! -bang -nargs=* Rg
             \ call fzf#vim#grep(
@@ -98,6 +107,21 @@ command! -bang -nargs=* Rg
             \           : fzf#vim#with_preview('right:50%:hidden', '?'),
             \   <bang>0)
 
+
+nnoremap <silent> <C-k> :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nmap <F2> <Plug>(coc-rename)
 
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
