@@ -4,6 +4,8 @@
 
 syntax on
 
+let mapleader = "\<Space>"
+
 set guicursor=
 set noshowmatch
 set relativenumber
@@ -75,9 +77,15 @@ inoremap <silent><expr> <TAB>
             \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
-nnoremap <leader>gd <Plug>(coc-definition)
-nnoremap <leader>gg <Plug>(coc-references)
-nnoremap <leader>mv <Plug>(coc-rename)
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> <leader>> <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>< <Plug>(coc-diagnostic-next)
+
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gg <Plug>(coc-references)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>mv <Plug>(coc-rename)
 
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -85,9 +93,14 @@ function! s:check_back_space() abort
 endfunction
 
 let loaded_matchparen = 1
-let mapleader = "\<Space>"
 let g:netrw_banner = 0
 let g:netrw_keepdir = 0
+
+
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 0
+let $RUST_SRC_PATH = systemlist("rustc --print sysroot")[0] . "/lib/rustlib/src/rust/src"
 
 
 " Some easier workflow bindings
@@ -159,6 +172,7 @@ if has("autocmd")
 endif
 
 if executable('rg')
+    let g:rg_derive_root='true'
     set grepprg=rg\ --no-heading\ --vimgrep
     set grepformat=%f:%l:%c:%m
 endif
